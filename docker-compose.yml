@@ -1,0 +1,37 @@
+version: '2'
+services:
+   odoo17-db:
+        image: postgres:12
+        restart: always
+        environment:
+                - POSTGRES_USER=odoo
+                - POSTGRES_PASSWORD=odoo
+                - POSTGRES_DB=postgres
+                - PGDATA=/var/lib/postgresql/data/pgdata
+        ports:
+                - 5151:5432
+        volumes:
+                - db-data:/var/lib/postgresql/data/pgdata
+        networks:
+                - resturant-network
+   odoo17:
+        image: odoo:17.0
+        restart: always
+        ports:
+                - 8089:8069
+                # - 8072:8072
+        links:
+                - db:odoo17-db
+        depends_on:
+                - odoo17-db
+        volumes:
+                - ./config:/etc/odoo
+                - .:/mnt/extra-addons
+                - odoo-data:/var/lib/odoo
+        networks:
+                - resturant-network
+volumes:
+        odoo-data:
+        db-data:
+networks:
+        resturant-network:

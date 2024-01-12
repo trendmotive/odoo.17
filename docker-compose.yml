@@ -20,8 +20,6 @@ services:
         ports:
                 - 8089:8069
                 # - 8072:8072
-        links:
-                - db:odoo17-db
         depends_on:
                 - odoo17-db
         volumes:

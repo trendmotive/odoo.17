@@ -13,7 +13,7 @@ services:
         volumes:
                 - db-data:/var/lib/postgresql/data/pgdata
         networks:
-                - resturant-network
+                - tremos-network
    odoo17:
         image: odoo:17.0
         restart: always
@@ -27,9 +27,9 @@ services:
                 - .:/mnt/extra-addons
                 - odoo-data:/var/lib/odoo
         networks:
-                - resturant-network
+                - tremos-network
 volumes:
         odoo-data:
         db-data:
 networks:
-        resturant-network:
+        tremos-network:

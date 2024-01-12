@@ -1,6 +1,6 @@
 version: '2'
 services:
-   odoo17-db:
+   db:
         image: postgres:12
         restart: always
         environment:
@@ -14,14 +14,15 @@ services:
                 - db-data:/var/lib/postgresql/data/pgdata
         networks:
                 - tremos-network
-   odoo17:
-        image: odoo:17.0
+   odoo:
+        image: odoo:16.0
         restart: always
         ports:
-                - 8089:8069
-                # - 8072:8072
+                - 8069:8069
+        links:
+                - db:db
         depends_on:
-                - odoo17-db
+                - db
         volumes:
                 - ./config:/etc/odoo
                 - .:/mnt/extra-addons
